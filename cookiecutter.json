@@ -1,0 +1,11 @@
+{
+    "wireload_project_name": "my_wireload_project",
+    "wireload_package_name": "my_wireload",
+    "wireload_class_name": "MyWireload",
+    "author": "Your Name",
+    "contact": "Your email",
+    "homepage": "https://github.com/merceedge/MerceEdge",
+    "description": "This is a wirload package project.",
+    "license": "Apache2.0"
+
+}
