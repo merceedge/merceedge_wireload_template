@@ -1,7 +1,7 @@
 {
-    "wireload_project_name": "my_wireload_project",
-    "wireload_package_name": "my_wireload",
-    "wireload_class_name": "MyWireload",
+    "wireload_project_name": "new_wireload_project",
+    "wireload_package_name": "new_wireload",
+    "wireload_class_name": "NewWireload",
     "author": "Your Name",
     "contact": "Your email",
     "homepage": "https://github.com/merceedge/MerceEdge",
