@@ -6,7 +6,7 @@ import os
 from os import path, walk
 import glob
 import yaml
-from shutil import copyfile
+from shutil import copyfile, copytree, rmtree
 
 import {{cookiecutter.wireload_package_name}}
 
@@ -15,9 +15,6 @@ here = path.abspath(path.dirname(__file__))
 
 """
 ##### How #####
-For Dev:
-python setup.py develop
-
 For Prod:
 python setup.py install
 """
@@ -39,6 +36,11 @@ def make_config_yml_backup_file(config_yml_path):
 
 def revert_config_yml_backup(config_yml_path):
     copyfile(config_yml_path + '.bak', config_yml_path)
+
+def force_copytree(src, des):
+    if os.path.exists(des):
+        rmtree(des)
+    copytree(src, des)
 
 """
 config_install
@@ -86,11 +88,15 @@ def config_install(is_develop=False):
         # step 2: templates path config
         wireload_package_install_path = prefix.binaries_directory(is_develop)
         template_path = os.path.join(wireload_package_install_path,'{{cookiecutter.wireload_package_name}}', 'templates')
-        config_yml['component_template']['paths'].append(template_path)
+        if template_path not in config_yml['component_template']['paths']:
+            config_yml['component_template']['paths'].append(template_path)
+        force_copytree('templates',  template_path)
 
         # step 3: formula path config
         formula_path = os.path.join(wireload_package_install_path, '{{cookiecutter.wireload_package_name}}', 'formulas')
-        config_yml['formula']['paths'].append(formula_path)
+        if formula_path not in config_yml['formula']['paths']:
+            config_yml['formula']['paths'].append(formula_path)
+        force_copytree('formulas',  formula_path)
 
         # step 4: wireload path config
         config_yml['wireload']['paths'].append(os.path.join(wireload_package_install_path, '{{cookiecutter.wireload_package_name}}'))

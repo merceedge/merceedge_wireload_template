@@ -1,7 +1,7 @@
 from merceedge.core import WireLoad
 
 class {{cookiecutter.wireload_class_name}}(WireLoad):
-    name = {{cookiecutter.wireload_class_name}}
+    name = '{{cookiecutter.wireload_class_name}}'
     """
     Author: {{cookiecutter.author}}
     License:{{cookiecutter.license}}
