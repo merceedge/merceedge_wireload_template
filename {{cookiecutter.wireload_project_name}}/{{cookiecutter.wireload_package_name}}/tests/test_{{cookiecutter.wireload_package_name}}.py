@@ -4,18 +4,19 @@ import os
 
 import {{cookiecutter.wireload_package_name}}
 from merceedge.util.yaml import load_yaml
-from merceedge.util.mock import MockEdge
+from merceedge.util.mock import MockEdge, gen_test_loop
 
+mock_edge = MockEdge(my_wireload.__config__)
 
 @pytest.mark.run(order=1)
-def test_{{cookiecutter.wireload_package_name}}():
-    mock_edge = MockEdge(my_wireload.__config__)
+@gen_test_loop(mock_edge)
+async def test_{{cookiecutter.wireload_package_name}}():
     tests_path = os.path.dirname(os.path.realpath(__file__))
     model_template_yml = load_yaml(os.path.join(tests_path, '../templates', '{{cookiecutter.wireload_class_name}}_template.yml'))
     new_wireload_obj = MyWireload(edge=mock_edge,
                                   model_template_config=model_template_yml)
 
-    def get_ouput(output_payload):
+    def get_ouput(output_name, output_payload):
         # Get output
         assert output_payload is not None
 
@@ -24,7 +25,7 @@ def test_{{cookiecutter.wireload_package_name}}():
     # input
     input_payload = {"test": "test_value"}
     # process
-    new_wireload_obj.process(input_payload)
+    await new_wireload_obj.process(input_payload)
     
    
 
