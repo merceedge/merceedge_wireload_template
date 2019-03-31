@@ -83,7 +83,7 @@ def config_install(is_develop=False):
     try:
         
         config_yml = load_yaml(config_yml_path)
-        config_yml.update({{cookiecutter.wireload_package_project_name}}.__config__)
+        config_yml.update({{cookiecutter.wireload_package_name}}.__config__)
         
         # step 2: templates path config
         wireload_package_install_path = prefix.binaries_directory(is_develop)
